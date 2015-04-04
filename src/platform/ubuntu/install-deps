@@ -1,0 +1,3 @@
+TINI_DEPS="build-essential cmake git" && \
+apt-get update && \
+apt-get install --yes ${TINI_DEPS} && \

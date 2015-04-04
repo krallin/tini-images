@@ -1,0 +1,5 @@
+git clone https://github.com/krallin/tini.git "${TINI_BUILD}" && \
+cd "${TINI_BUILD}" && \
+git checkout "${TINI_VERSION}" && \
+cmake . && \
+make && \

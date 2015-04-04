@@ -1,0 +1,3 @@
+TINI_DEPS="gcc cmake make git" && \
+yum history new && \
+yum install --assumeyes ${TINI_DEPS} && \

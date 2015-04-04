@@ -1,0 +1,19 @@
+FROM __SOURCE_IMAGE__
+
+RUN TINI_VERSION="__TINI_VERSION__" && \
+    TINI_BUILD="/tmp/tini" && \
+    echo "Installing build dependencies" && \
+    __TINI_INSTALL_DEPS__
+    echo "Building Tini" && \
+    __TINI_BUILD_APP__
+    echo "Installing Tini" && \
+    __TINI_INSTALL_APP__
+    echo "Cleaning up" && \
+    __TINI_CLEANUP_APP__
+    __TINI_CLEANUP_DEPS__
+    echo "Running Smoke Test" && \
+    /usr/local/bin/tini -- ls && \
+    echo "Done"
+
+
+ENTRYPOINT ["/usr/local/bin/tini", "--"]
