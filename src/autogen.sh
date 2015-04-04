@@ -4,7 +4,7 @@ set -o errexit
 set -o nounset
 
 # Config
-TINI_VERSION="v0.3.3"
+TINI_VERSION="v0.3.4"
 
 # Script
 

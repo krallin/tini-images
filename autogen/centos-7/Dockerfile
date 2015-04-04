@@ -1,5 +1,5 @@
 FROM centos:7
-RUN TINI_VERSION="c5a49cf" && \
+RUN TINI_VERSION="v0.3.4" && \
     TINI_BUILD="/tmp/tini" && \
     echo "Installing build dependencies" && \
     TINI_DEPS="gcc cmake make git" && \
