@@ -1,5 +1,6 @@
 git clone https://github.com/krallin/tini.git "${TINI_BUILD}" && \
 cd "${TINI_BUILD}" && \
 git checkout "${TINI_VERSION}" && \
-cmake . && \
-make && \
+export SOURCE_DIR="${TINI_BUILD}" && \
+export BUILD_DIR="${TINI_BUILD}" && \
+"${TINI_BUILD}/ci/run_build.sh" && \

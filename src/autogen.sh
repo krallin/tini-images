@@ -4,7 +4,8 @@ set -o errexit
 set -o nounset
 
 # Config
-TINI_VERSION="v0.3.4"
+TINI_REAL_VERSION="0.4.3"
+TINI_VERSION="v${TINI_REAL_VERSION}"
 
 # Script
 
@@ -30,12 +31,13 @@ for dir in "platform/"*; do
 
     perl -pe "s/__SOURCE_IMAGE__/'${source_image}'/ge" -i "${dockerfile}"
     perl -pe "s/__TINI_VERSION__/'${TINI_VERSION}'/ge" -i "${dockerfile}"
+    perl -pe "s/__TINI_REAL_VERSION__/'${TINI_REAL_VERSION}'/ge" -i "${dockerfile}"
 
     perl -pe 's/__TINI_BUILD_APP__/`cat build-app`/ge' -i "${dockerfile}"
-    perl -pe 's/__TINI_INSTALL_APP__/`cat install-app`/ge' -i "${dockerfile}"
     perl -pe 's/__TINI_CLEANUP_APP__/`cat cleanup-app`/ge' -i "${dockerfile}"
 
     pushd "${HERE}/platform/${platform}" >/dev/null
+    perl -pe 's/__TINI_INSTALL_APP__/`cat install-app`/ge' -i "${dockerfile}"
     perl -pe 's/__TINI_INSTALL_DEPS__/`cat install-deps`/ge' -i "${dockerfile}"
     perl -pe 's/__TINI_CLEANUP_DEPS__/`cat cleanup-deps`/ge' -i "${dockerfile}"
     popd >/dev/null
