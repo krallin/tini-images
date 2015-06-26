@@ -1,9 +1,9 @@
 FROM centos:7
-RUN TINI_VERSION="v0.4.3" && \
-    TINI_REAL_VERSION="0.4.3" && \
+RUN TINI_VERSION="v0.5.0" && \
+    TINI_REAL_VERSION="0.5.0" && \
     TINI_BUILD="/tmp/tini" && \
     echo "Installing build dependencies" && \
-    TINI_DEPS="gcc cmake make git rpm-build" && \
+    TINI_DEPS="gcc cmake make git rpm-build glibc-static" && \
 yum history new && \
 yum install --assumeyes ${TINI_DEPS} && \
     echo "Building Tini" && \
@@ -20,10 +20,13 @@ export BUILD_DIR="${TINI_BUILD}" && \
 rm -rf "${TINI_BUILD}" && \
     yum --assumeyes history undo 1 && \
 yum clean all && \
-    echo "Symlinkng to /usr/local/bin/tini" && \
-    ln -s /usr/bin/tini /usr/local/bin/tini && \
+    echo "Symlinkng to /usr/local/bin" && \
+    ln -s /usr/bin/tini        /usr/local/bin/tini && \
+    ln -s /usr/bin/tini-static /usr/local/bin/tini-static && \
     echo "Running Smoke Test" && \
     /usr/bin/tini -- ls && \
+    /usr/bin/tini-static -- ls && \
     /usr/local/bin/tini -- ls && \
+    /usr/local/bin/tini-static -- ls && \
     echo "Done"
 ENTRYPOINT ["/usr/bin/tini", "--"]

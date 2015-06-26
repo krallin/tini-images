@@ -12,11 +12,14 @@ RUN TINI_VERSION="__TINI_VERSION__" && \
     echo "Cleaning up" && \
     __TINI_CLEANUP_APP__
     __TINI_CLEANUP_DEPS__
-    echo "Symlinkng to /usr/local/bin/tini" && \
-    ln -s /usr/bin/tini /usr/local/bin/tini && \
+    echo "Symlinkng to /usr/local/bin" && \
+    ln -s /usr/bin/tini        /usr/local/bin/tini && \
+    ln -s /usr/bin/tini-static /usr/local/bin/tini-static && \
     echo "Running Smoke Test" && \
     /usr/bin/tini -- ls && \
+    /usr/bin/tini-static -- ls && \
     /usr/local/bin/tini -- ls && \
+    /usr/local/bin/tini-static -- ls && \
     echo "Done"
 
 ENTRYPOINT ["/usr/bin/tini", "--"]
