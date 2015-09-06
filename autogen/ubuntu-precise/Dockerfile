@@ -1,14 +1,18 @@
 FROM ubuntu:precise
-RUN TINI_VERSION="v0.5.0" && \
-    TINI_REAL_VERSION="0.5.0" && \
+RUN TINI_VERSION="v0.6.0" && \
+    TINI_REAL_VERSION="0.6.0" && \
     TINI_BUILD="/tmp/tini" && \
     echo "Installing build dependencies" && \
-    TINI_DEPS="build-essential cmake git rpm" && \
+    TINI_DEPS="build-essential cmake git rpm curl libcap-dev python-dev" && \
 apt-get update && \
 apt-get install --yes ${TINI_DEPS} && \
     echo "Building Tini" && \
     git clone https://github.com/krallin/tini.git "${TINI_BUILD}" && \
 cd "${TINI_BUILD}" && \
+curl -O https://pypi.python.org/packages/source/v/virtualenv/virtualenv-13.1.2.tar.gz && \
+tar -xf virtualenv-13.1.2.tar.gz && \
+mv virtualenv-13.1.2/virtualenv.py virtualenv-13.1.2/virtualenv && \
+export PATH="${TINI_BUILD}/virtualenv-13.1.2:${PATH}" && \
 git checkout "${TINI_VERSION}" && \
 export SOURCE_DIR="${TINI_BUILD}" && \
 export BUILD_DIR="${TINI_BUILD}" && \
