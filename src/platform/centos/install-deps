@@ -1,3 +1,4 @@
 TINI_DEPS="gcc cmake make git rpm-build glibc-static curl tar libcap-devel python-devel" && \
+yum history new || \
 yum history new && \
 yum install --assumeyes ${TINI_DEPS} && \
