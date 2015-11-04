@@ -1,6 +1,6 @@
 FROM ubuntu:precise
-RUN TINI_VERSION="v0.8.2" && \
-    TINI_REAL_VERSION="0.8.2" && \
+RUN TINI_VERSION="v0.8.3" && \
+    TINI_REAL_VERSION="0.8.3" && \
     TINI_BUILD="/tmp/tini" && \
     echo "Installing build dependencies" && \
     TINI_DEPS="build-essential cmake git rpm curl libcap-dev python-dev" && \

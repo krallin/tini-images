@@ -1,6 +1,6 @@
 FROM centos:7
-RUN TINI_VERSION="v0.8.2" && \
-    TINI_REAL_VERSION="0.8.2" && \
+RUN TINI_VERSION="v0.8.3" && \
+    TINI_REAL_VERSION="0.8.3" && \
     TINI_BUILD="/tmp/tini" && \
     echo "Installing build dependencies" && \
     TINI_DEPS="gcc cmake make git rpm-build glibc-static curl tar libcap-devel python-devel" && \
