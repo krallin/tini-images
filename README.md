@@ -15,7 +15,7 @@ Using this repository
 ---------------------
 
 If you are using an Ubuntu or CentOS image as your base, just update your
-Dockerfile to use the Tini images instead. Note that these images are create
+Dockerfile to use the Tini images instead. Note that these images are created
 with Docker automated builds; there are no binary blobs shipping here!
 
 If you aren't using one of those images, check the [Tini repository][10] for
