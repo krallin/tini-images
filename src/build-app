@@ -13,4 +13,5 @@ export PATH="${PATH}:${HARDENING_CHECK_PLACEHOLDER_DIR}" && \
 git checkout "${TINI_VERSION}" && \
 export SOURCE_DIR="${TINI_BUILD}" && \
 export BUILD_DIR="${TINI_BUILD}" && \
+export ARCH_NATIVE=1 && \
 "${TINI_BUILD}/ci/run_build.sh" && \

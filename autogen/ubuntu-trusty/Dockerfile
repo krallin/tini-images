@@ -1,6 +1,6 @@
 FROM ubuntu:trusty
-RUN TINI_VERSION="v0.8.4" && \
-    TINI_REAL_VERSION="0.8.4" && \
+RUN TINI_VERSION="v0.13.2" && \
+    TINI_REAL_VERSION="0.13.2" && \
     TINI_BUILD="/tmp/tini" && \
     echo "Installing build dependencies" && \
     TINI_DEPS="build-essential cmake git rpm curl libcap-dev python-dev hardening-includes" && \
@@ -22,6 +22,7 @@ export PATH="${PATH}:${HARDENING_CHECK_PLACEHOLDER_DIR}" && \
 git checkout "${TINI_VERSION}" && \
 export SOURCE_DIR="${TINI_BUILD}" && \
 export BUILD_DIR="${TINI_BUILD}" && \
+export ARCH_NATIVE=1 && \
 "${TINI_BUILD}/ci/run_build.sh" && \
     echo "Installing Tini" && \
     dpkg -i "${TINI_BUILD}/tini_${TINI_REAL_VERSION}.deb"  && \
