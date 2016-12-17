@@ -6,6 +6,7 @@ RUN TINI_VERSION="v0.8.4" && \
     TINI_DEPS="gcc cmake make git rpm-build glibc-static curl tar libcap-devel python-devel" && \
 yum history new || \
 yum history new && \
+mv /sbin/weak-modules /sbin/weak-modules.tmp && \
 yum install --assumeyes ${TINI_DEPS} && \
     echo "Building Tini" && \
     git clone https://github.com/krallin/tini.git "${TINI_BUILD}" && \
@@ -31,6 +32,7 @@ export BUILD_DIR="${TINI_BUILD}" && \
 rm -rf "${TINI_BUILD}" && \
     yum --assumeyes history undo 1 && \
 yum clean all && \
+mv /sbin/weak-modules.tmp /sbin/weak-modules && \
     echo "Symlinkng to /usr/local/bin" && \
     ln -s /usr/bin/tini        /usr/local/bin/tini && \
     ln -s /usr/bin/tini-static /usr/local/bin/tini-static && \
