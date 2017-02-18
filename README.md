@@ -54,5 +54,5 @@ Visit the Docker hub for a list of tags that are available:
   + [Ubuntu][21]
 
   [10]: https://github.com/krallin/tini
-  [20]: https://registry.hub.docker.com/u/krallin/centos-tini
-  [21]: https://registry.hub.docker.com/u/krallin/ubuntu-tini
+  [20]: https://hub.docker.com/r/krallin/centos-tini/
+  [21]: https://hub.docker.com/r/krallin/ubuntu-tini/
