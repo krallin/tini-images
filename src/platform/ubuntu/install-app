@@ -1,1 +1,3 @@
-dpkg -i "${TINI_BUILD}/tini_${TINI_REAL_VERSION}.deb"  && \
+apt-get update \
+    && dpkg --force-all -i /tmp/tini_release.deb \
+

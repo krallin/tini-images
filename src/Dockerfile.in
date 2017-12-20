@@ -1,25 +1,29 @@
+FROM __SOURCE_IMAGE__ as builder
+
+RUN TINI_VERSION="__TINI_VERSION__" \
+    && TINI_REAL_VERSION="__TINI_REAL_VERSION__" \
+    && TINI_BUILD="/tmp/tini" \
+    && echo "Installing build dependencies" \
+    __TINI_INSTALL_DEPS__
+    && echo "Building Tini" \
+    __TINI_BUILD_APP__
+    && echo "Move Tini" \
+    __TINI_MOVE_APP__
+
 FROM __SOURCE_IMAGE__
 
-RUN TINI_VERSION="__TINI_VERSION__" && \
-    TINI_REAL_VERSION="__TINI_REAL_VERSION__" && \
-    TINI_BUILD="/tmp/tini" && \
-    echo "Installing build dependencies" && \
-    __TINI_INSTALL_DEPS__
-    echo "Building Tini" && \
-    __TINI_BUILD_APP__
-    echo "Installing Tini" && \
-    __TINI_INSTALL_APP__
-    echo "Cleaning up" && \
-    __TINI_CLEANUP_APP__
+COPY __TINI_COPY_APP__
+RUN __TINI_INSTALL_APP__
+    __TINI_CLEAN_APP__
     __TINI_CLEANUP_DEPS__
-    echo "Symlinkng to /usr/local/bin" && \
-    ln -s /usr/bin/tini        /usr/local/bin/tini && \
-    ln -s /usr/bin/tini-static /usr/local/bin/tini-static && \
-    echo "Running Smoke Test" && \
-    /usr/bin/tini -- ls && \
-    /usr/bin/tini-static -- ls && \
-    /usr/local/bin/tini -- ls && \
-    /usr/local/bin/tini-static -- ls && \
-    echo "Done"
+    && echo "Symlinkng to /usr/local/bin" \
+    && ln -s /usr/bin/tini        /usr/local/bin/tini \
+    && ln -s /usr/bin/tini-static /usr/local/bin/tini-static \
+    && echo "Running Smoke Test" \
+    && /usr/bin/tini -- ls \
+    && /usr/bin/tini-static -- ls \
+    && /usr/local/bin/tini -- ls \
+    && /usr/local/bin/tini-static -- ls \
+    && echo "Done"
 
 ENTRYPOINT ["/usr/bin/tini", "--"]

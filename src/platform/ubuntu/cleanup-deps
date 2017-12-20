@@ -1,3 +1,4 @@
-apt-get purge --yes ${TINI_DEPS} && \
-apt-get autoremove --yes && \
-rm -rf /var/lib/apt/lists/* && \
+&& TINI_DEPS="build-essential cmake curl git hardening-includes libcap-dev python-dev rpm" \
+    && apt-get purge --yes ${TINI_DEPS} \
+    && apt-get autoremove --yes \
+    && rm -rf /var/lib/apt/lists/* \

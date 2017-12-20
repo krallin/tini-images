@@ -1,3 +1,1 @@
-yum --assumeyes history undo 1 && \
-yum clean all && \
-mv /sbin/weak-modules.tmp /sbin/weak-modules && \
+&& yum clean all \

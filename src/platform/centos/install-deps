@@ -1,5 +1,4 @@
-TINI_DEPS="gcc cmake make git rpm-build glibc-static curl tar libcap-devel python-devel" && \
-yum history new || \
-yum history new && \
-mv /sbin/weak-modules /sbin/weak-modules.tmp && \
-yum install --assumeyes ${TINI_DEPS} && \
+&& TINI_DEPS="cmake curl gcc git glibc-static libcap-devel make python-devel rpm-build tar" \
+    && yum history new || yum history new \
+    && mv /sbin/weak-modules /sbin/weak-modules.tmp \
+    && yum install --setopt=tsflags=nodocs --assumeyes ${TINI_DEPS} \

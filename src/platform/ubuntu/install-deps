@@ -1,3 +1,3 @@
-TINI_DEPS="build-essential cmake git rpm curl libcap-dev python-dev hardening-includes" && \
-apt-get update && \
-apt-get install --yes ${TINI_DEPS} && \
+&& TINI_DEPS="build-essential cmake curl git hardening-includes libcap-dev python-dev rpm" \
+    && apt-get update \
+    && apt-get install --yes ${TINI_DEPS} \
