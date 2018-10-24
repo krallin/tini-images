@@ -3,10 +3,6 @@
 set -o errexit
 set -o nounset
 
-# Config
-TINI_REAL_VERSION="0.13.2"
-TINI_VERSION="v${TINI_REAL_VERSION}"
-
 # Script
 
 REL_HERE="$(dirname "${BASH_SOURCE}")"
@@ -22,28 +18,34 @@ for dir in "platform/"*; do
   platform="$(basename "${dir}")"
   for version in ${versions}; do
     source_image="${platform}:${version}"
-    dockerfile="${AUTOGEN_TARGET}/${platform}-${version}/Dockerfile"
+    tini_versions="$(cat "${HERE}/VERSIONS")"
+    for tini_version in ${tini_versions}; do
+      # Config
+      TINI_REAL_VERSION="${tini_version}"
+      TINI_VERSION="v${TINI_REAL_VERSION}"
 
-    echo "Preparing Dockerfile for ${source_image} in ${dockerfile}"
-    mkdir -p "$(dirname "${dockerfile}")"
+      dockerfile="${AUTOGEN_TARGET}/${platform}-${version}-${tini_version}/Dockerfile"
 
-    cp "${HERE}/Dockerfile.in" "${dockerfile}"
+      echo "Preparing Dockerfile for ${source_image} in ${dockerfile}"
+      mkdir -p "$(dirname "${dockerfile}")"
 
-    perl -pe "s/__SOURCE_IMAGE__/'${source_image}'/ge" -i "${dockerfile}"
-    perl -pe "s/__TINI_VERSION__/'${TINI_VERSION}'/ge" -i "${dockerfile}"
-    perl -pe "s/__TINI_REAL_VERSION__/'${TINI_REAL_VERSION}'/ge" -i "${dockerfile}"
+      cp "${HERE}/Dockerfile.in" "${dockerfile}"
 
-    perl -pe 's/__TINI_BUILD_APP__/`cat build-app`/ge' -i "${dockerfile}"
-    perl -pe 's/__TINI_CLEANUP_APP__/`cat cleanup-app`/ge' -i "${dockerfile}"
+      perl -pe "s/__SOURCE_IMAGE__/'${source_image}'/ge" -i "${dockerfile}"
+      perl -pe "s/__TINI_VERSION__/'${TINI_VERSION}'/ge" -i "${dockerfile}"
+      perl -pe "s/__TINI_REAL_VERSION__/'${TINI_REAL_VERSION}'/ge" -i "${dockerfile}"
 
-    pushd "${HERE}/platform/${platform}" >/dev/null
-    perl -pe 's/__TINI_INSTALL_APP__/`cat install-app`/ge' -i "${dockerfile}"
-    perl -pe 's/__TINI_INSTALL_DEPS__/`cat install-deps`/ge' -i "${dockerfile}"
-    perl -pe 's/__TINI_CLEANUP_DEPS__/`cat cleanup-deps`/ge' -i "${dockerfile}"
-    popd >/dev/null
+      perl -pe 's/__TINI_BUILD_APP__/`cat build-app`/ge' -i "${dockerfile}"
+      perl -pe 's/__TINI_CLEANUP_APP__/`cat cleanup-app`/ge' -i "${dockerfile}"
 
-    perl -n -e 'print if /\S/' -i "${dockerfile}"
+      pushd "${HERE}/platform/${platform}" >/dev/null
+      perl -pe 's/__TINI_INSTALL_APP__/`cat install-app`/ge' -i "${dockerfile}"
+      perl -pe 's/__TINI_INSTALL_DEPS__/`cat install-deps`/ge' -i "${dockerfile}"
+      perl -pe 's/__TINI_CLEANUP_DEPS__/`cat cleanup-deps`/ge' -i "${dockerfile}"
+      popd >/dev/null
 
+      perl -n -e 'print if /\S/' -i "${dockerfile}"
+    done
   done
 done
 
