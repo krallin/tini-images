@@ -1,4 +1,4 @@
-TINI_DEPS="gcc cmake make git rpm-build glibc-static curl tar libcap-devel python-devel" && \
+TINI_DEPS="gcc cmake make git rpm-build glibc-static wget curl tar libcap-devel python-devel" && \
 yum history new || \
 yum history new && \
 mv /sbin/weak-modules /sbin/weak-modules.tmp && \

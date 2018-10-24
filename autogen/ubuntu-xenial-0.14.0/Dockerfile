@@ -9,8 +9,8 @@ apt-get install --yes ${TINI_DEPS} && \
     echo "Building Tini" && \
     git clone https://github.com/krallin/tini.git "${TINI_BUILD}" && \
 cd "${TINI_BUILD}" && \
-curl -O https://pypi.python.org/packages/source/v/virtualenv/virtualenv-13.1.2.tar.gz && \
-tar -xf virtualenv-13.1.2.tar.gz && \
+wget https://pypi.python.org/packages/source/v/virtualenv/virtualenv-13.1.2.tar.gz && \
+tar xvfz virtualenv-13.1.2.tar.gz && \
 mv virtualenv-13.1.2/virtualenv.py virtualenv-13.1.2/virtualenv && \
 export PATH="${TINI_BUILD}/virtualenv-13.1.2:${PATH}" && \
 HARDENING_CHECK_PLACEHOLDER="${TINI_BUILD}/hardening-check/hardening-check" && \
