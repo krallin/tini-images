@@ -21,11 +21,12 @@ for dir in "platform/"*; do
 
   platform="$(basename "${dir}")"
   for version in ${versions}; do
+    dir="${AUTOGEN_TARGET}/${platform}-${version}"
     source_image="${platform}:${version}"
-    dockerfile="${AUTOGEN_TARGET}/${platform}-${version}/Dockerfile"
+    dockerfile="${dir}/Dockerfile"
 
     echo "Preparing Dockerfile for ${source_image} in ${dockerfile}"
-    mkdir -p "$(dirname "${dockerfile}")"
+    mkdir -p "$dir"
 
     cp "${HERE}/Dockerfile.in" "${dockerfile}"
 
@@ -44,6 +45,7 @@ for dir in "platform/"*; do
 
     perl -n -e 'print if /\S/' -i "${dockerfile}"
 
+    echo "krallin/${platform}-tini:${version}" > "${dir}/TAG"
   done
 done
 
