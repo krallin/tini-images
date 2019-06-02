@@ -1,6 +1,6 @@
 git clone https://github.com/krallin/tini.git "${TINI_BUILD}" && \
 cd "${TINI_BUILD}" && \
-curl -O https://pypi.python.org/packages/source/v/virtualenv/virtualenv-13.1.2.tar.gz && \
+curl -fsSLO https://pypi.python.org/packages/source/v/virtualenv/virtualenv-13.1.2.tar.gz && \
 tar -xf virtualenv-13.1.2.tar.gz && \
 mv virtualenv-13.1.2/virtualenv.py virtualenv-13.1.2/virtualenv && \
 export PATH="${TINI_BUILD}/virtualenv-13.1.2:${PATH}" && \

@@ -1,3 +1,8 @@
-TINI_DEPS="build-essential cmake git rpm curl libcap-dev python-dev hardening-includes" && \
+. /etc/os-release && \
+if dpkg --compare-versions "$VERSION_ID" ge "18.04"; \
+	then HARDENING="devscripts"; \
+	else HARDENING="hardening-includes"; \
+fi && \
+TINI_DEPS="build-essential cmake git rpm curl libcap-dev python-dev ${HARDENING}" && \
 apt-get update && \
 apt-get install --yes ${TINI_DEPS} && \

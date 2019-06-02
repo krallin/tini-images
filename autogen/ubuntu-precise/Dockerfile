@@ -3,13 +3,18 @@ RUN TINI_VERSION="v0.13.2" && \
     TINI_REAL_VERSION="0.13.2" && \
     TINI_BUILD="/tmp/tini" && \
     echo "Installing build dependencies" && \
-    TINI_DEPS="build-essential cmake git rpm curl libcap-dev python-dev hardening-includes" && \
+    . /etc/os-release && \
+if dpkg --compare-versions "$VERSION_ID" ge "18.04"; \
+	then HARDENING="devscripts"; \
+	else HARDENING="hardening-includes"; \
+fi && \
+TINI_DEPS="build-essential cmake git rpm curl libcap-dev python-dev ${HARDENING}" && \
 apt-get update && \
 apt-get install --yes ${TINI_DEPS} && \
     echo "Building Tini" && \
     git clone https://github.com/krallin/tini.git "${TINI_BUILD}" && \
 cd "${TINI_BUILD}" && \
-curl -O https://pypi.python.org/packages/source/v/virtualenv/virtualenv-13.1.2.tar.gz && \
+curl -fsSLO https://pypi.python.org/packages/source/v/virtualenv/virtualenv-13.1.2.tar.gz && \
 tar -xf virtualenv-13.1.2.tar.gz && \
 mv virtualenv-13.1.2/virtualenv.py virtualenv-13.1.2/virtualenv && \
 export PATH="${TINI_BUILD}/virtualenv-13.1.2:${PATH}" && \

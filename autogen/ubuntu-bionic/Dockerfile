@@ -1,4 +1,4 @@
-FROM ubuntu:xenial
+FROM ubuntu:bionic
 RUN TINI_VERSION="v0.13.2" && \
     TINI_REAL_VERSION="0.13.2" && \
     TINI_BUILD="/tmp/tini" && \
