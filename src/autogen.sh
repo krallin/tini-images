@@ -35,16 +35,17 @@ for dir in "platform/"*; do
     perl -pe "s/__TINI_REAL_VERSION__/'${TINI_REAL_VERSION}'/ge" -i "${dockerfile}"
 
     perl -pe 's/__TINI_BUILD_APP__/`cat build-app`/ge' -i "${dockerfile}"
-    perl -pe 's/__TINI_CLEANUP_APP__/`cat cleanup-app`/ge' -i "${dockerfile}"
 
     pushd "${HERE}/platform/${platform}" >/dev/null
-    perl -pe 's/__TINI_INSTALL_APP__/`cat install-app`/ge' -i "${dockerfile}"
-    perl -pe 's/__TINI_INSTALL_DEPS__/`cat install-deps`/ge' -i "${dockerfile}"
-    perl -pe 's/__TINI_CLEANUP_DEPS__/`cat cleanup-deps`/ge' -i "${dockerfile}"
+    perl -pe 's/__TINI_INSTALL_APP__/`cat install-app | perl -pe "chomp if eof"`/ge' -i "${dockerfile}"
+    perl -pe 's/__TINI_INSTALL_DEPS__/`cat install-deps | perl -pe "chomp if eof"`/ge' -i "${dockerfile}"
+    perl -pe 's/__TINI_MOVE_APP__/`cat move-app | perl -pe "chomp if eof"`/ge' -i "${dockerfile}"
+    perl -pe 's/__TINI_COPY_APP__/`cat copy-app | perl -pe "chomp if eof"`/ge' -i "${dockerfile}"
     popd >/dev/null
 
     perl -n -e 'print if /\S/' -i "${dockerfile}"
 
+    echo "${source_image}" > "${dir}/SOURCE-TAG"
     echo "krallin/${platform}-tini:${version}" > "${dir}/TAG"
   done
 done

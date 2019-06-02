@@ -5,4 +5,4 @@ if dpkg --compare-versions "$VERSION_ID" ge "18.04"; \
 fi && \
 TINI_DEPS="build-essential cmake git rpm curl libcap-dev python-dev ${HARDENING}" && \
 apt-get update && \
-apt-get install --yes ${TINI_DEPS} && \
+apt-get install --yes ${TINI_DEPS}

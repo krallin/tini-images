@@ -2,4 +2,4 @@ TINI_DEPS="gcc cmake make git rpm-build glibc-static curl tar libcap-devel pytho
 yum history new || \
 yum history new && \
 mv /sbin/weak-modules /sbin/weak-modules.tmp && \
-yum install --assumeyes ${TINI_DEPS} && \
+yum install --assumeyes ${TINI_DEPS}

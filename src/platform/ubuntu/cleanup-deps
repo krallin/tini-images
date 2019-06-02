@@ -1,3 +1,0 @@
-apt-get purge --yes ${TINI_DEPS} && \
-apt-get autoremove --yes && \
-rm -rf /var/lib/apt/lists/* && \

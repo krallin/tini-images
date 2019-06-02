@@ -32,13 +32,12 @@ function chronic () {
 
 ./src/autogen.sh
 
-TAGS=()
-
 for dir in autogen/*; do
+  SOURCE="$(cat "${dir}/SOURCE-TAG")"
   TAG="$(cat "${dir}/TAG")"
-  echo "Building ${TAG} in ${dir}"
+  echo "Building ${TAG} FROM ${SOURCE} in ${dir}"
+  chronic docker pull "$SOURCE" # ensure up to date
   chronic docker build --tag "$TAG" "${dir}/."
-  TAGS+="$TAG"
 done
 
 if [[ "$PUSH" -eq 0 ]]; then
